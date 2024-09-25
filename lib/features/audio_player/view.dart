@@ -7,10 +7,11 @@ import 'package:quran_app/core/widgets/app_bar.dart';
 
 class AudioPlayerView extends StatefulWidget {
   const AudioPlayerView({
-    Key? key,
+    super.key,
     required this.urlSound,
     required this.ayah,
-  }) : super(key: key);
+  });
+
   final String urlSound, ayah;
 
   @override

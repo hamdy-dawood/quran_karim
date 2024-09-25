@@ -124,7 +124,7 @@ class MorePage extends StatelessWidget {
                                   );
                                 },
                                 icon: SvgPicture.asset(
-                                  AssetsStrings.facebook,
+                                  ImageManager.facebook,
                                   height: 25.h,
                                 ),
                               ),
@@ -137,7 +137,7 @@ class MorePage extends StatelessWidget {
                                   );
                                 },
                                 icon: SvgPicture.asset(
-                                  AssetsStrings.instagram,
+                                  ImageManager.instagram,
                                   height: 25.h,
                                 ),
                               ),
@@ -150,7 +150,7 @@ class MorePage extends StatelessWidget {
                                   );
                                 },
                                 icon: SvgPicture.asset(
-                                  AssetsStrings.linkedin,
+                                  ImageManager.linkedin,
                                   height: 25.h,
                                 ),
                               ),

@@ -47,7 +47,7 @@ class LastReadWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SvgIcon(
-                            icon: AssetsStrings.mushaf,
+                            icon: ImageManager.mushaf,
                             height: 30.h,
                             color: ColorManager.white,
                           ),
@@ -84,7 +84,7 @@ class LastReadWidget extends StatelessWidget {
                     ],
                   ),
                   Image.asset(
-                    AssetsStrings.quranLogoImg,
+                    ImageManager.quranLogoImg,
                     height: 100.h,
                   ),
                 ],
@@ -151,7 +151,7 @@ class EmptyContainerFirst extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgIcon(
-                icon: AssetsStrings.mushaf,
+                icon: ImageManager.mushaf,
                 height: 40.h,
                 color: ColorManager.white,
               ),
@@ -168,7 +168,7 @@ class EmptyContainerFirst extends StatelessWidget {
             ],
           ),
           Image.asset(
-            AssetsStrings.quranLogoImg,
+            ImageManager.quranLogoImg,
             height: 100.h,
           ),
         ],

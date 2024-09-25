@@ -5,16 +5,9 @@ class NavBarController {
 
   //list of navigation bar icons
   List icons = [
-    AssetsStrings.mushaf,
-    AssetsStrings.beads,
-    // AssetsStrings.mushaf,
-    AssetsStrings.decore,
+    ImageManager.mushaf,
+    ImageManager.mushafSound,
+    ImageManager.beads,
+    ImageManager.decore,
   ];
-
-  // List icons = [
-  //   Icons.menu_book,
-  //   Icons.chrome_reader_mode_outlined,
-  //   // Icons.compass_calibration,
-  //   Icons.settings,
-  // ];
 }

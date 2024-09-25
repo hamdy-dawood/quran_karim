@@ -19,7 +19,7 @@ class ThemeCubit extends Cubit<ThemeData> {
     colorScheme: const ColorScheme.light(),
     appBarTheme: AppBarTheme(backgroundColor: ColorManager.white),
     bottomSheetTheme:
-        BottomSheetThemeData(backgroundColor: ColorManager.orangeColor),
+        BottomSheetThemeData(backgroundColor: ColorManager.white),
     textTheme: TextTheme(
       bodyLarge: TextStyle(color: ColorManager.black),
       bodyMedium: const TextStyle(
@@ -42,7 +42,7 @@ class ThemeCubit extends Cubit<ThemeData> {
     colorScheme: const ColorScheme.dark(),
     appBarTheme: AppBarTheme(backgroundColor: ColorManager.black),
     bottomSheetTheme:
-        BottomSheetThemeData(backgroundColor: ColorManager.orangeColor),
+        BottomSheetThemeData(backgroundColor: ColorManager.black),
     textTheme: TextTheme(
       bodyLarge: TextStyle(color: ColorManager.white),
       bodyMedium: const TextStyle(

@@ -10,7 +10,7 @@ class ReturnBasmalah extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Image.asset(
-        AssetsStrings.basmalahImg,
+        ImageManager.basmalahImg,
         height: 90.h,
         color: ColorManager.black,
         width: 0.7.sw,

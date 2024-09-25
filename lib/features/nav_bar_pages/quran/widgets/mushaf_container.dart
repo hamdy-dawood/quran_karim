@@ -21,7 +21,7 @@ class MushafContainer extends StatelessWidget {
         child: Row(
           children: [
             SvgIcon(
-              icon: AssetsStrings.mushaf,
+              icon: ImageManager.mushaf,
               height: 35.h,
               color: ColorManager.white,
             ),

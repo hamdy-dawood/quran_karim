@@ -8,6 +8,7 @@ import 'package:upgrader/upgrader.dart';
 import 'core/helpers/cache_helper.dart';
 import 'core/helpers/constants.dart';
 import 'core/helpers/navigate.dart';
+import 'features/nav_bar_pages/sound/presentation/cubit/sount_cubit.dart';
 import 'features/splash/view.dart';
 
 class MyApp extends StatefulWidget {
@@ -39,8 +40,11 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
-          child: BlocProvider(
-            create: (context) => ThemeCubit(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => ThemeCubit()),
+              BlocProvider(create: (context) => AppSoundCubit()),
+            ],
             child: BlocBuilder<ThemeCubit, ThemeData>(
               builder: (context, theme) {
                 return MaterialApp(

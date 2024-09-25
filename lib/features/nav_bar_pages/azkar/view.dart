@@ -12,7 +12,7 @@ import 'pages/azkar_for_waking/view.dart';
 import 'widget/azkar_item.dart';
 
 class AzkarView extends StatelessWidget {
-  const AzkarView({Key? key}) : super(key: key);
+  const AzkarView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class AzkarView extends StatelessWidget {
               text: "اذكار الصباح",
               containerColor: ColorManager.orange2,
               textColor: ColorManager.orange1,
-              image: AssetsStrings.sunnyImg,
+              image: ImageManager.sunnyImg,
             ),
             SizedBox(height: 10.h),
             AzkarItem(
@@ -40,7 +40,7 @@ class AzkarView extends StatelessWidget {
               text: "اذكار المساء",
               containerColor: ColorManager.purple2,
               textColor: ColorManager.purple1,
-              image: AssetsStrings.eveningImg,
+              image: ImageManager.eveningImg,
             ),
             SizedBox(height: 10.h),
             AzkarItem(
@@ -48,7 +48,7 @@ class AzkarView extends StatelessWidget {
               text: "أذكار الاستيقاظ",
               containerColor: ColorManager.blue2,
               textColor: ColorManager.blue1,
-              image: AssetsStrings.morningImg,
+              image: ImageManager.morningImg,
             ),
             SizedBox(height: 10.h),
             AzkarItem(
@@ -56,7 +56,7 @@ class AzkarView extends StatelessWidget {
               text: "أذكار النوم",
               containerColor: ColorManager.pink2,
               textColor: ColorManager.pink1,
-              image: AssetsStrings.bedImg,
+              image: ImageManager.bedImg,
             ),
             SizedBox(height: 10.h),
             AzkarItem(
@@ -64,7 +64,7 @@ class AzkarView extends StatelessWidget {
               text: "أذكار بعد الصلاة",
               containerColor: ColorManager.green2,
               textColor: ColorManager.green1,
-              image: AssetsStrings.prayImg,
+              image: ImageManager.prayImg,
             ),
           ],
         ),

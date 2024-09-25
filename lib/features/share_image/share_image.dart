@@ -105,7 +105,7 @@ class ShareImage extends StatelessWidget {
                       height: 100,
                       width: 40,
                       child: Image.asset(
-                        AssetsStrings.designImg,
+                        ImageManager.designImg,
                         fit: BoxFit.fill,
                         color: ColorManager.orangeColor,
                       ),
@@ -177,7 +177,7 @@ class ShareImage extends StatelessWidget {
                       child: RotatedBox(
                         quarterTurns: 2,
                         child: Image.asset(
-                          AssetsStrings.designImg,
+                          ImageManager.designImg,
                           fit: BoxFit.fill,
                           color: ColorManager.orangeColor,
                         ),

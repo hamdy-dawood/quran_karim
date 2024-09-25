@@ -36,7 +36,7 @@ class _SplashViewState extends State<SplashView> {
               height: 250.h,
               width: 250.h,
               child: const Image(
-                image: AssetImage(AssetsStrings.quranLogoImg),
+                image: AssetImage(ImageManager.quranLogoImg),
                 fit: BoxFit.fill,
               ),
             ),

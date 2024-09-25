@@ -38,7 +38,7 @@ class LogoName extends StatelessWidget {
             ],
           ),
           Image.asset(
-            AssetsStrings.quranLogoImg,
+            ImageManager.quranLogoImg,
             height: 100.h,
           ),
         ],

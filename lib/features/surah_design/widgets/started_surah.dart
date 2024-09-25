@@ -41,7 +41,7 @@ class StartedSurahWidget extends StatelessWidget {
             bottom: 0,
             child: SizedBox(
               child: Image.asset(
-                AssetsStrings.quranImg,
+                ImageManager.quranImg,
                 height: surah + 1 != 1 && surah + 1 != 9 ? 160.h : 90.h,
               ),
             ),

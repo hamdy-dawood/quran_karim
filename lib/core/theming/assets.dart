@@ -1,6 +1,7 @@
-class AssetsStrings {
+class ImageManager {
   static const String baseIcons = "assets/icons/";
   static const String baseImages = "assets/images/";
+  static const String baseLottie = "assets/lottie/";
 
   // Images
   static const String quranImg = "${baseImages}quran.png";
@@ -15,12 +16,17 @@ class AssetsStrings {
   static const String prayImg = "${baseImages}pray.png";
   static const String sunnyImg = "${baseImages}sunny.png";
   static const String bannerImg = "${baseImages}banner.jpg";
+  static const String waveImg = "${baseImages}wave.png";
 
   // icons
   static const String mushaf = "${baseIcons}mushaf.svg";
+  static const String mushafSound = "${baseIcons}mushaf_sound.svg";
   static const String decore = "${baseIcons}decore.svg";
   static const String beads = "${baseIcons}beads.svg";
   static const String facebook = "${baseIcons}facebook.svg";
   static const String instagram = "${baseIcons}instagram.svg";
   static const String linkedin = "${baseIcons}linkedin.svg";
+
+  // Lottie
+  static const String lottieWaves = "${baseLottie}waves.json";
 }
