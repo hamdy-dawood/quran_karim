@@ -10,7 +10,7 @@ class SvgIcon extends StatelessWidget {
   });
 
   final String icon;
-  final Color color;
+  final Color? color;
   final double? height;
 
   @override
@@ -18,7 +18,7 @@ class SvgIcon extends StatelessWidget {
     return SvgPicture.asset(
       icon,
       height: height,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+      colorFilter: ColorFilter.mode(color??Colors.black, BlendMode.srcIn),
     );
   }
 }

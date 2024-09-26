@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quran_app/core/helpers/app_theme.dart';
+import 'package:quran_app/core/helpers/cache_helper.dart';
 import 'package:quran_app/features/nav_bar_pages/azkar/view.dart';
 import 'package:quran_app/features/nav_bar_pages/more/more_page.dart';
 import 'package:quran_app/features/nav_bar_pages/quran/view.dart';
+import 'package:quran_app/features/nav_bar_pages/sound/presentation/screens/speakers_screen.dart';
 import 'package:quran_app/features/nav_bar_pages/sound/presentation/screens/surah_screen.dart';
 
 import 'controller.dart';
@@ -22,15 +23,18 @@ class NavBarView extends StatefulWidget {
 }
 
 class _NavBarViewState extends State<NavBarView> {
+  String cachingSpeaker = CacheHelper.get(key: "speaker") ?? "";
   final controller = NavBarController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Widget> _buildScreens() => const [
-    QuranPageView(),
-    QuranSoundView(),
-    AzkarView(),
-    MorePage(),
-  ];
+  List<Widget> _buildScreens() => [
+        const QuranPageView(),
+        cachingSpeaker.isEmpty
+            ? const SpeakersScreen()
+            : const QuranSoundView(),
+        const AzkarView(),
+        const MorePage(),
+      ];
 
   @override
   Widget build(BuildContext context) {

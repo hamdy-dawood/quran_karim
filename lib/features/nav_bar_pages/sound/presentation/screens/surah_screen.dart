@@ -8,6 +8,7 @@ import 'package:quran_app/core/helpers/to_arabic_number_convertor.dart';
 import 'package:quran_app/core/theming/colors.dart';
 import 'package:quran_app/core/widgets/app_bar.dart';
 
+import '../widgets/speaker_container.dart';
 import 'surah_sound_screen.dart';
 
 class QuranSoundView extends StatelessWidget {
@@ -26,6 +27,7 @@ class QuranSoundView extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(height: 10.h),
+            const SpeakerContainer(),
             SizedBox(height: 10.h),
             for (int i = 0; i < arabicName.length; i++)
               GestureDetector(

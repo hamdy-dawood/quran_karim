@@ -202,7 +202,7 @@ class ShareImage extends StatelessWidget {
     image.writeAsBytes(bytes);
 
     const text =
-        "تمت المشاركة من تطبيق القرآن الكريم -  المصحف كامل , تفسير ميسر , أدعية وأذكار - شاركنا الثواب , شاركنا في الصدقة الجارية. \n https://play.google.com/store/apps/details?id=com.hamdy.quran_app_app.quran_app";
+        "تمت المشاركة من تطبيق القرآن الكريم -  المصحف كامل , تفسير ميسر , أدعية وأذكار - شاركنا الثواب , شاركنا في الصدقة الجارية. \n https://play.google.com/store/apps/details?id=com.hamdy_khalid_dawood.quran_app";
 
     await Share.shareFiles([image.path], text: text);
   }
