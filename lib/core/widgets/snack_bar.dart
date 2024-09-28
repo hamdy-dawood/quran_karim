@@ -16,8 +16,8 @@ showMessage({
     SnackBar(
       behavior: SnackBarBehavior.floating,
       backgroundColor: MagicRouter.currentContext.read<ThemeCubit>().isDarkMode
-          ? ColorManager.black
-          : ColorManager.white,
+          ? AppColors.black
+          : AppColors.white,
       elevation: 2.0,
       content: Row(
         children: [
@@ -41,8 +41,8 @@ showMessage({
                     fontFamily: 'cairo',
                     color:
                         MagicRouter.currentContext.read<ThemeCubit>().isDarkMode
-                            ? ColorManager.white
-                            : ColorManager.black,
+                            ? AppColors.white
+                            : AppColors.black,
                   ),
                 ),
                 subMessage!.isNotEmpty
@@ -54,8 +54,8 @@ showMessage({
                           color: MagicRouter.currentContext
                                   .read<ThemeCubit>()
                                   .isDarkMode
-                              ? ColorManager.white
-                              : ColorManager.black,
+                              ? AppColors.white
+                              : AppColors.black,
                         ),
                       )
                     : const SizedBox.shrink(),
@@ -70,8 +70,8 @@ showMessage({
             child: Icon(
               Icons.close,
               color: MagicRouter.currentContext.read<ThemeCubit>().isDarkMode
-                  ? ColorManager.white
-                  : ColorManager.black,
+                  ? AppColors.white
+                  : AppColors.black,
             ),
           ),
         ],

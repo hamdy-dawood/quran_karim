@@ -40,8 +40,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         .clearSnackBars();
                   },
                   color: context.read<ThemeCubit>().isDarkMode
-                      ? ColorManager.white
-                      : ColorManager.black,
+                      ? AppColors.white
+                      : AppColors.black,
                   icon: const Icon(Icons.arrow_back_sharp),
                 );
               },
@@ -54,8 +54,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               text,
               style: TextStyle(
                 color: context.read<ThemeCubit>().isDarkMode
-                    ? ColorManager.white
-                    : ColorManager.black,
+                    ? AppColors.white
+                    : AppColors.black,
                 fontSize: fontSize ?? 20.sp,
                 fontFamily: fontFamily ?? 'cairo',
               ),

@@ -26,12 +26,12 @@ class SearchAyahTextField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: ColorManager.orangeColor,
+              color: AppColors.orangeColor,
             ),
             borderRadius: BorderRadius.circular(10.r)),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: ColorManager.orangeColor,
+              color: AppColors.orangeColor,
             ),
             borderRadius: BorderRadius.circular(10.r)),
       ),

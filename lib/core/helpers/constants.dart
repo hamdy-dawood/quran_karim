@@ -325,3 +325,5 @@ Future readQuranSoundJson() async {
   quranSound = data["sound_quran"];
   return quranSound;
 }
+
+String logoImageNetwork = "https://i.imghippo.com/files/I17QR1727507875.png";

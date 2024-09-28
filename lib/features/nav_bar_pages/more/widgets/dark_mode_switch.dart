@@ -15,8 +15,8 @@ class DarkModeSwitch extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeData>(
       builder: (context, state) {
         return CupertinoSwitch(
-          activeColor: ColorManager.orangeColor,
-          thumbColor: ColorManager.white,
+          activeColor: AppColors.orangeColor,
+          thumbColor: AppColors.white,
           value: themeCubit.isDarkMode,
           onChanged: (value) {
             themeCubit.toggleTheme();
@@ -48,7 +48,7 @@ class DarkModeIconButton extends StatelessWidget {
             context.read<ThemeCubit>().isDarkMode
                 ? Icons.sunny
                 : Icons.dark_mode_outlined,
-            color: ColorManager.orangeColor,
+            color: AppColors.orangeColor,
             size: 25.sp,
           ),
         );

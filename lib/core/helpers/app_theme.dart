@@ -14,44 +14,44 @@ class ThemeCubit extends Cubit<ThemeData> {
 
   static final ThemeData _lightTheme = ThemeData(
     platform: TargetPlatform.iOS,
-    scaffoldBackgroundColor: ColorManager.white,
-    primaryColor: ColorManager.white,
+    scaffoldBackgroundColor: AppColors.white,
+    primaryColor: AppColors.white,
     colorScheme: const ColorScheme.light(),
-    appBarTheme: AppBarTheme(backgroundColor: ColorManager.white),
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.white),
     bottomSheetTheme:
-        BottomSheetThemeData(backgroundColor: ColorManager.white),
+        BottomSheetThemeData(backgroundColor: AppColors.white),
     textTheme: TextTheme(
-      bodyLarge: TextStyle(color: ColorManager.black),
+      bodyLarge: TextStyle(color: AppColors.black),
       bodyMedium: const TextStyle(
         color: Color.fromARGB(196, 44, 44, 44),
       ),
-      displayLarge: TextStyle(color: ColorManager.displayLargeLight),
-      displayMedium: TextStyle(color: ColorManager.displayMediumLight),
+      displayLarge: TextStyle(color: AppColors.displayLargeLight),
+      displayMedium: TextStyle(color: AppColors.displayMediumLight),
     ),
-    iconTheme: IconThemeData(color: ColorManager.blueColor),
-    listTileTheme: ListTileThemeData(tileColor: ColorManager.grey),
+    iconTheme: IconThemeData(color: AppColors.blueColor),
+    listTileTheme: ListTileThemeData(tileColor: AppColors.grey),
     cardColor: const Color.fromARGB(255, 253, 251, 240),
     bottomNavigationBarTheme:
-        BottomNavigationBarThemeData(backgroundColor: ColorManager.white),
+        BottomNavigationBarThemeData(backgroundColor: AppColors.white),
   );
 
   static final ThemeData _darkTheme = ThemeData(
     platform: TargetPlatform.iOS,
-    scaffoldBackgroundColor: ColorManager.black,
-    primaryColor: ColorManager.black,
+    scaffoldBackgroundColor: AppColors.black,
+    primaryColor: AppColors.black,
     colorScheme: const ColorScheme.dark(),
-    appBarTheme: AppBarTheme(backgroundColor: ColorManager.black),
+    appBarTheme: AppBarTheme(backgroundColor: AppColors.black),
     bottomSheetTheme:
-        BottomSheetThemeData(backgroundColor: ColorManager.black),
+        BottomSheetThemeData(backgroundColor: AppColors.black),
     textTheme: TextTheme(
-      bodyLarge: TextStyle(color: ColorManager.white),
+      bodyLarge: TextStyle(color: AppColors.white),
       bodyMedium: const TextStyle(
         color: Color(0xffd8d8d8),
       ),
-      displayLarge: TextStyle(color: ColorManager.displayLargeDark),
-      displayMedium: TextStyle(color: ColorManager.displayMediumDark),
+      displayLarge: TextStyle(color: AppColors.displayLargeDark),
+      displayMedium: TextStyle(color: AppColors.displayMediumDark),
     ),
-    iconTheme: IconThemeData(color: ColorManager.blueColor),
+    iconTheme: IconThemeData(color: AppColors.blueColor),
     listTileTheme: const ListTileThemeData(tileColor: Color(0xff202328)),
     cardColor: const Color(0x80202328),
     bottomNavigationBarTheme:

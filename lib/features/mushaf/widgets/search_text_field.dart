@@ -26,25 +26,25 @@ class SearchTextField extends StatelessWidget {
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.done,
           style: TextStyle(
-            color: ColorManager.black,
+            color: AppColors.black,
             fontSize: 18.sp,
           ),
           decoration: InputDecoration(
             hintText: "رقم الصفحة",
             hintStyle: TextStyle(
-              color: ColorManager.black,
+              color: AppColors.black,
               fontSize: 14.sp,
               fontWeight: FontWeight.w400,
               fontFamily: "cairo",
             ),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: ColorManager.yellowColor,
+                  color: AppColors.yellowColor,
                 ),
                 borderRadius: BorderRadius.circular(10.r)),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: ColorManager.orangeColor,
+                  color: AppColors.orangeColor,
                 ),
                 borderRadius: BorderRadius.circular(10.r)),
           ),

@@ -110,8 +110,8 @@ class _SurahPageState extends State<SurahPage> {
                       .clearSnackBars();
                 },
                 color: context.read<ThemeCubit>().isDarkMode
-                    ? ColorManager.white
-                    : ColorManager.black,
+                    ? AppColors.white
+                    : AppColors.black,
                 icon: const Icon(Icons.arrow_back_sharp),
               );
             },
@@ -123,7 +123,7 @@ class _SurahPageState extends State<SurahPage> {
               textDirection: TextDirection.rtl,
               style: TextStyle(
                 fontSize: 25.sp,
-                color: ColorManager.orangeColor,
+                color: AppColors.orangeColor,
                 fontFamily: 'amiri',
               ),
             ),
@@ -195,7 +195,7 @@ class _SurahPageState extends State<SurahPage> {
                                   message: "تم حفظ الآية",
                                   subMessage:
                                       "يمكنك الرجوع للعلامة من الصفحة الرئيسية",
-                                  color: ColorManager.greenWhatsColor,
+                                  color: AppColors.greenWhatsColor,
                                 );
                               },
                               onTapShare: () async {

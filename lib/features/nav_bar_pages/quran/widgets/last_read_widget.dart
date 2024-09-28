@@ -49,13 +49,13 @@ class LastReadWidget extends StatelessWidget {
                           SvgIcon(
                             icon: ImageManager.mushaf,
                             height: 30.h,
-                            color: ColorManager.white,
+                            color: AppColors.white,
                           ),
                           SizedBox(width: 5.w),
                           Text(
                             "آخر علامة",
                             style: TextStyle(
-                              color: ColorManager.white,
+                              color: AppColors.white,
                               fontFamily: 'cairo',
                               fontSize: 20.sp,
                             ),
@@ -66,7 +66,7 @@ class LastReadWidget extends StatelessWidget {
                       Text(
                         "سُورَة ${arabicName[surah - 1]['name']}",
                         style: TextStyle(
-                          color: ColorManager.white,
+                          color: AppColors.white,
                           fontFamily: 'amiri',
                           fontSize: 24.sp,
                           fontWeight: FontWeight.w600,
@@ -77,7 +77,7 @@ class LastReadWidget extends StatelessWidget {
                         "${arabicName[surah - 1]['type']} - آياتها ${"${arabicName[surah - 1]['verse_count']}".toString().toArabicNumbers} آية",
                         style: TextStyle(
                           fontSize: 18.sp,
-                          color: ColorManager.white,
+                          color: AppColors.white,
                           fontFamily: 'cairo',
                         ),
                       ),
@@ -95,7 +95,7 @@ class LastReadWidget extends StatelessWidget {
             onTap: () {
               showMessage(
                 message: "قم بحفظ الآية اولا للرجوع اليها من هنا",
-                color: ColorManager.redPrimary,
+                color: AppColors.redPrimary,
               );
             },
             child: const EmptyContainerFirst(),
@@ -123,8 +123,8 @@ class EmptyContainer extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            ColorManager.orange2,
-            ColorManager.orangeColor,
+            AppColors.orange2,
+            AppColors.orangeColor,
           ],
           stops: const [
             0.02,
@@ -153,13 +153,13 @@ class EmptyContainerFirst extends StatelessWidget {
               SvgIcon(
                 icon: ImageManager.mushaf,
                 height: 40.h,
-                color: ColorManager.white,
+                color: AppColors.white,
               ),
               SizedBox(height: 10.h),
               Text(
                 "القُرْآنُ الكَرِيمُ",
                 style: TextStyle(
-                  color: ColorManager.white,
+                  color: AppColors.white,
                   fontFamily: 'amiri',
                   fontSize: 26.sp,
                   fontWeight: FontWeight.w600,

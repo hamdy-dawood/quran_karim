@@ -21,7 +21,7 @@ class LogoName extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
-                  color: ColorManager.orangeColor,
+                  color: AppColors.orangeColor,
                   letterSpacing: 1.2,
                   fontFamily: 'amiri',
                 ),
@@ -30,7 +30,7 @@ class LogoName extends StatelessWidget {
                 'Karim',
                 style: TextStyle(
                   fontSize: 35,
-                  color: ColorManager.yellowColor,
+                  color: AppColors.yellowColor,
                   letterSpacing: 1.2,
                   fontFamily: 'amiri',
                 ),

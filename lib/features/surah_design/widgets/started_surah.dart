@@ -26,8 +26,8 @@ class StartedSurahWidget extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            ColorManager.orange2,
-            ColorManager.orangeColor,
+            AppColors.orange2,
+            AppColors.orangeColor,
           ],
           stops: const [
             0.02,
@@ -56,7 +56,7 @@ class StartedSurahWidget extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
                   fontSize: 40.sp,
-                  color: ColorManager.black,
+                  color: AppColors.black,
                   fontFamily: 'amiri',
                 ),
               ),
@@ -66,7 +66,7 @@ class StartedSurahWidget extends StatelessWidget {
                   horizontal: 40.w,
                 ),
                 child: Divider(
-                  color: ColorManager.black,
+                  color: AppColors.black,
                   thickness: 0.5,
                 ),
               ),
@@ -74,7 +74,7 @@ class StartedSurahWidget extends StatelessWidget {
                 "$type - آياتها ${count.toArabicNumbers} آية",
                 style: TextStyle(
                   fontSize: 22.sp,
-                  color: ColorManager.black,
+                  color: AppColors.black,
                   fontFamily: 'cairo',
                 ),
               ),

@@ -17,9 +17,9 @@ class CustomTextButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        foregroundColor: ColorManager.black,
+        foregroundColor: AppColors.black,
         elevation: 2,
-        backgroundColor: ColorManager.yellowColor,
+        backgroundColor: AppColors.yellowColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
         ),
@@ -27,7 +27,7 @@ class CustomTextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: ColorManager.black,
+          color: AppColors.black,
           fontSize: 16.sp,
           fontFamily: 'cairo',
         ),

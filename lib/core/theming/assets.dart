@@ -28,6 +28,7 @@ class ImageManager {
   static const String linkedin = "${baseIcons}linkedin.svg";
   static const String backward10 = "${baseIcons}backward.svg";
   static const String forward10 = "${baseIcons}forward.svg";
+  static const String download = "${baseIcons}download.svg";
 
   // Lottie
   static const String lottieWaves = "${baseLottie}waves.json";

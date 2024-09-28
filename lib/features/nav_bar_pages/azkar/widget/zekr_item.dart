@@ -26,8 +26,8 @@ class ZekrItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
         color: context.read<ThemeCubit>().isDarkMode
-            ? ColorManager.displayMediumDark
-            : ColorManager.displayMediumLight,
+            ? AppColors.displayMediumDark
+            : AppColors.displayMediumLight,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
@@ -38,7 +38,7 @@ class ZekrItem extends StatelessWidget {
                 height: 35.h,
                 width: 35.h,
                 decoration: BoxDecoration(
-                  color: ColorManager.yellowColor,
+                  color: AppColors.yellowColor,
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: Center(
@@ -46,7 +46,7 @@ class ZekrItem extends StatelessWidget {
                     child: Text(
                       number.toArabicNumbers,
                       style: TextStyle(
-                        color: ColorManager.black,
+                        color: AppColors.black,
                         fontSize: 22.sp,
                         fontFamily: 'amiri',
                       ),
@@ -60,8 +60,8 @@ class ZekrItem extends StatelessWidget {
                   height: 35.h,
                   decoration: BoxDecoration(
                     color: context.read<ThemeCubit>().isDarkMode
-                        ? ColorManager.grey5
-                        : ColorManager.offWhiteColor,
+                        ? AppColors.grey5
+                        : AppColors.offWhiteColor,
                     borderRadius: BorderRadius.circular(30.r),
                   ),
                   child: Center(
@@ -78,7 +78,7 @@ class ZekrItem extends StatelessWidget {
                           TextSpan(
                             text: count.toArabicNumbers,
                             style: TextStyle(
-                              color: ColorManager.orangeColor,
+                              color: AppColors.orangeColor,
                               fontSize: 14.sp,
                               fontFamily: "cairo",
                             ),
@@ -96,12 +96,12 @@ class ZekrItem extends StatelessWidget {
                       ClipboardData(text: "{$text}. \n $hintText."));
                   showMessage(
                     message: "تم النسخ",
-                    color: ColorManager.greenWhatsColor,
+                    color: AppColors.greenWhatsColor,
                   );
                 },
                 child: Icon(
                   Icons.copy,
-                  color: ColorManager.orangeColor,
+                  color: AppColors.orangeColor,
                   size: 22.sp,
                 ),
               ),
@@ -112,7 +112,7 @@ class ZekrItem extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.share_outlined,
-                  color: ColorManager.orangeColor,
+                  color: AppColors.orangeColor,
                   size: 22.sp,
                 ),
               ),

@@ -33,7 +33,7 @@ class TafserView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22.sp,
                   fontFamily: arabicFont,
-                  color: ColorManager.orangeColor,
+                  color: AppColors.orangeColor,
                 ),
               ),
             ),

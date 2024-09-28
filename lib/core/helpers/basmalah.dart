@@ -12,7 +12,7 @@ class ReturnBasmalah extends StatelessWidget {
       child: Image.asset(
         ImageManager.basmalahImg,
         height: 90.h,
-        color: ColorManager.black,
+        color: AppColors.black,
         width: 0.7.sw,
       ),
     );

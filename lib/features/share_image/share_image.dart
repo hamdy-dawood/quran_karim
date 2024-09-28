@@ -43,8 +43,8 @@ class ShareImage extends StatelessWidget {
                 MagicRouter.navigatePop();
               },
               color: context.read<ThemeCubit>().isDarkMode
-                  ? ColorManager.white
-                  : ColorManager.black,
+                  ? AppColors.white
+                  : AppColors.black,
               icon: const Icon(Icons.arrow_back_sharp),
             );
           },
@@ -78,7 +78,7 @@ class ShareImage extends StatelessWidget {
             child: Text(
               "مشاركة",
               style: TextStyle(
-                color: ColorManager.white,
+                color: AppColors.white,
                 fontSize: 18.sp,
                 fontFamily: "cairo",
               ),
@@ -107,7 +107,7 @@ class ShareImage extends StatelessWidget {
                       child: Image.asset(
                         ImageManager.designImg,
                         fit: BoxFit.fill,
-                        color: ColorManager.orangeColor,
+                        color: AppColors.orangeColor,
                       ),
                     ),
                     Padding(
@@ -150,7 +150,7 @@ class ShareImage extends StatelessWidget {
                         SizedBox(width: 12.w),
                         Container(
                           decoration: BoxDecoration(
-                            color: ColorManager.yellowColor,
+                            color: AppColors.yellowColor,
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Center(
@@ -159,7 +159,7 @@ class ShareImage extends StatelessWidget {
                               child: Text(
                                 surahNumber.toString(),
                                 style: TextStyle(
-                                  color: ColorManager.black,
+                                  color: AppColors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -179,7 +179,7 @@ class ShareImage extends StatelessWidget {
                         child: Image.asset(
                           ImageManager.designImg,
                           fit: BoxFit.fill,
-                          color: ColorManager.orangeColor,
+                          color: AppColors.orangeColor,
                         ),
                       ),
                     ),

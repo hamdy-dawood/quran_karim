@@ -1,13 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:quran_app/core/helpers/cache_helper.dart';
 import 'package:quran_app/core/theming/assets.dart';
 import 'package:quran_app/core/theming/colors.dart';
 import 'package:quran_app/core/widgets/app_bar.dart';
+import 'package:quran_app/core/widgets/emit_loading_item.dart';
 import 'package:quran_app/core/widgets/svg_icons.dart';
 import 'package:quran_app/features/nav_bar_pages/sound/presentation/cubit/sount_cubit.dart';
+
+import '../cubit/sound_states.dart';
 
 class SurahSoundView extends StatefulWidget {
   const SurahSoundView({
@@ -23,13 +29,16 @@ class SurahSoundView extends StatefulWidget {
 }
 
 class _SurahSoundViewState extends State<SurahSoundView> {
-
+  static int _nextMediaId = 0;
 
   @override
   void initState() {
     super.initState();
+    context.read<AppSoundCubit>().checkIfDownLoaded(widget.urlSound);
 
-    if (context.read<AppSoundCubit>().currentSurahPlayer != widget.urlSound) {
+    if (context.read<AppSoundCubit>().currentSurahPlayer != widget.urlSound ||
+        context.read<AppSoundCubit>().currentSurahSpeaker !=
+            (CacheHelper.get(key: "speaker") ?? "")) {
       context.read<AppSoundCubit>().clearPosition();
     }
 
@@ -38,7 +47,17 @@ class _SurahSoundViewState extends State<SurahSoundView> {
 
   @override
   Widget build(BuildContext context) {
+    final appSoundCubit = context.read<AppSoundCubit>();
     String cachingSpeaker = CacheHelper.get(key: "speaker") ?? "";
+    log("cachingSpeaker $cachingSpeaker");
+
+    String quranSoundUrl =
+        "https://server11.mp3quran.net/$cachingSpeaker/${widget.urlSound}";
+
+    String afasySoundUrl =
+        "https://server8.mp3quran.net/$cachingSpeaker/${widget.urlSound}";
+
+    String soundUrl = cachingSpeaker == "afs" ? afasySoundUrl : quranSoundUrl;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -46,186 +65,278 @@ class _SurahSoundViewState extends State<SurahSoundView> {
         fontSize: 25.sp,
         fontFamily: 'amiri',
       ),
-      body: BlocBuilder<AppSoundCubit, AppSoundStates>(
-        builder: (context, state) {
-          final appSoundCubit = context.read<AppSoundCubit>();
-
-          return ListView(
-            children: [
-              SizedBox(height: 0.05.sh),
-              Lottie.asset(
+      body: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          BlocBuilder<AppSoundCubit, AppSoundStates>(
+            builder: (context, state) {
+              return Lottie.asset(
                 ImageManager.lottieWaves,
-                height: 0.5.sh,
+                height: 0.45.sh,
                 animate: appSoundCubit.isPlaying ? true : false,
-              ),
-              SizedBox(height: 0.05.sh),
-              Column(
-                children: [
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Slider(
-                                min: 0,
-                                max:
-                                    appSoundCubit.duration.inSeconds.toDouble(),
-                                value:
-                                    appSoundCubit.position.inSeconds.toDouble(),
-                                onChanged: (value) {
-                                  appSoundCubit
-                                      .seek(Duration(seconds: value.toInt()));
-                                },
-                                activeColor: Colors.deepOrange.withOpacity(0.8),
-                                inactiveColor:
-                                    Colors.deepOrange.withOpacity(0.3),
-
+              );
+            },
+          ),
+          SizedBox(height: 0.04.sh),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: BlocBuilder<AppSoundCubit, AppSoundStates>(
+              builder: (context, state) {
+                return appSoundCubit.isDownloaded == false &&
+                        appSoundCubit.isStartDownload == false
+                    ? OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.orangeColor,
+                          padding: EdgeInsets.symmetric(vertical: 12.h),
+                        ),
+                        onPressed: () {
+                          appSoundCubit.downloadAndCacheFile(
+                            soundUrl,
+                            widget.urlSound,
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "تحميل",
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.color,
+                                fontFamily: 'cairo',
                               ),
+                            ),
+                            10.horizontalSpace,
+                            SvgIcon(
+                              icon: ImageManager.download,
+                              height: 22.h,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge?.color,
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox();
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: BlocBuilder<AppSoundCubit, AppSoundStates>(
+              builder: (context, state) {
+                return ValueListenableBuilder(
+                    valueListenable: appSoundCubit.downloadProgressNotifier,
+                    builder: (context, value, snapshot) {
+                      return appSoundCubit.downloadProgressNotifier.value ==
+                                  0 ||
+                              appSoundCubit.downloadProgressNotifier.value ==
+                                  100
+                          ? const SizedBox()
+                          : CircularPercentIndicator(
+                              radius: 35,
+                              lineWidth: 4,
+                              percent: appSoundCubit.percent,
+                              center: Text(
+                                appSoundCubit.percentText,
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.color,
+                                  fontFamily: 'cairo',
+                                ),
+                              ),
+                              circularStrokeCap: CircularStrokeCap.round,
+                              progressColor: AppColors.orangeColor,
+                            );
+                    });
+              },
+            ),
+          ),
+          SizedBox(height: 0.01.sh),
+        ],
+      ),
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BlocBuilder<AppSoundCubit, AppSoundStates>(
+                        builder: (context, state) {
+                          return Slider(
+                            min: 0,
+                            max: appSoundCubit.duration.inSeconds.toDouble(),
+                            value: appSoundCubit.position.inSeconds.toDouble(),
+                            onChanged: (value) {
+                              appSoundCubit
+                                  .seek(Duration(seconds: value.toInt()));
+                            },
+                            activeColor: Colors.deepOrange.withOpacity(0.8),
+                            inactiveColor: Colors.deepOrange.withOpacity(0.3),
+                          );
+                        },
+                      ),
 
-                              // SizedBox(
-                              //   height: 80,
-                              //   // Adjust the height based on wave size
-                              //   child: Stack(
-                              //     alignment: Alignment.center,
-                              //     children: [
-                              //       // Wave-like background
-                              //       Positioned.fill(
-                              //         child: CustomPaint(
-                              //           painter:
-                              //               WavePainter(), // Custom wave painter
-                              //         ),
-                              //       ),
-                              //
-                              //       // Slider on top of the wave background
-                              //       SliderTheme(
-                              //         data: SliderTheme.of(context).copyWith(
-                              //           trackHeight: 0, // Hide default track
-                              //           thumbShape: const RoundSliderThumbShape(
-                              //             enabledThumbRadius: 8,
-                              //           ),
-                              //           thumbColor: Colors.deepOrange,
-                              //           overlayColor:
-                              //               Colors.deepOrange.withOpacity(0.2),
-                              //         ),
-                              //         child: Slider(
-                              //           min: 0,
-                              //           max: appSoundCubit.duration.inSeconds
-                              //               .toDouble(),
-                              //           value: appSoundCubit.position.inSeconds
-                              //               .toDouble(),
-                              //           onChanged: (value) {
-                              //             appSoundCubit.seek(
-                              //                 Duration(seconds: value.toInt()));
-                              //           },
-                              //           activeColor: Colors.transparent,
-                              //           inactiveColor: Colors.transparent,
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    formatDuration(appSoundCubit.position),
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.color,
-                                      fontFamily: 'cairo',
-                                    ),
-                                  ),
-                                  Text(
-                                    formatDuration(appSoundCubit.duration -
-                                        appSoundCubit.position),
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.color,
-                                      fontFamily: 'cairo',
-                                    ),
-                                  ),
-                                ],
+                      // SizedBox(
+                      //   height: 80,
+                      //   // Adjust the height based on wave size
+                      //   child: Stack(
+                      //     alignment: Alignment.center,
+                      //     children: [
+                      //       // Wave-like background
+                      //       Positioned.fill(
+                      //         child: CustomPaint(
+                      //           painter:
+                      //               WavePainter(), // Custom wave painter
+                      //         ),
+                      //       ),
+                      //
+                      //       // Slider on top of the wave background
+                      //       SliderTheme(
+                      //         data: SliderTheme.of(context).copyWith(
+                      //           trackHeight: 0, // Hide default track
+                      //           thumbShape: const RoundSliderThumbShape(
+                      //             enabledThumbRadius: 8,
+                      //           ),
+                      //           thumbColor: Colors.deepOrange,
+                      //           overlayColor:
+                      //               Colors.deepOrange.withOpacity(0.2),
+                      //         ),
+                      //         child: Slider(
+                      //           min: 0,
+                      //           max: appSoundCubit.duration.inSeconds
+                      //               .toDouble(),
+                      //           value: appSoundCubit.position.inSeconds
+                      //               .toDouble(),
+                      //           onChanged: (value) {
+                      //             appSoundCubit.seek(
+                      //                 Duration(seconds: value.toInt()));
+                      //           },
+                      //           activeColor: Colors.transparent,
+                      //           inactiveColor: Colors.transparent,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      BlocBuilder<AppSoundCubit, AppSoundStates>(
+                        builder: (context, state) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                formatDuration(appSoundCubit.position),
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.color,
+                                  fontFamily: 'cairo',
+                                ),
+                              ),
+                              Text(
+                                formatDuration(appSoundCubit.duration -
+                                    appSoundCubit.position),
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.color,
+                                  fontFamily: 'cairo',
+                                ),
                               ),
                             ],
-                          ),
-                        ),
-                      ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          BlocBuilder<AppSoundCubit, AppSoundStates>(
+            builder: (context, state) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      appSoundCubit.forward10Seconds();
+                    },
+                    icon: SvgIcon(
+                      icon: ImageManager.forward10,
+                      height: 30.h,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          appSoundCubit.forward10Seconds();
-                        },
-                        icon: SvgIcon(
-                          icon: ImageManager.forward10,
-                          height: 30.h,
-                          color: Theme.of(context).textTheme.bodyLarge?.color,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          appSoundCubit.currentSurahPlayer = widget.urlSound;
+                  GestureDetector(
+                    onTap: () async {
+                      appSoundCubit.currentSurahPlayer = widget.urlSound;
+                      appSoundCubit.currentSurahSpeaker = cachingSpeaker;
 
-                          if (appSoundCubit.isPlaying) {
-                            await appSoundCubit.pause();
-                          } else {
-                            String quranSoundUrl =
-                                "https://server11.mp3quran.net/${CacheHelper.get(key: "speaker")}/${widget.urlSound}";
-
-                            String afasySoundUrl =
-                                "https://server8.mp3quran.net/${CacheHelper.get(key: "speaker")}/${widget.urlSound}";
-
-                            String soundUrl = cachingSpeaker == "afs" ? afasySoundUrl : quranSoundUrl;
-
-                            // Pass a file name for caching
-                            await appSoundCubit.play(soundUrl, "${widget.urlSound}.mp3");
+                      if (appSoundCubit.isPlaying) {
+                        await appSoundCubit.pause();
+                      } else {
+                        await appSoundCubit.play(
+                          fileName: widget.urlSound,
+                          url: soundUrl,
+                          mediaId: _nextMediaId++,
+                          surahName: "سُورَة ${widget.surahName}",
+                          speaker: cachingSpeaker,
+                        );
+                      }
+                    },
+                    child: CircleAvatar(
+                      radius: 33.r,
+                      backgroundColor: AppColors.orangeColor,
+                      child: BlocBuilder<AppSoundCubit, AppSoundStates>(
+                        builder: (context, state) {
+                          if (state is AppSoundLoadingState) {
+                            return const DefaultSmallCircleIndicator();
                           }
-                        },
-                        child: CircleAvatar(
-                          radius: 33.r,
-                          backgroundColor: ColorManager.orangeColor,
-                          child: Icon(
+                          return Icon(
                             appSoundCubit.isPlaying
                                 ? Icons.pause
                                 : Icons.play_arrow,
                             color:
                                 Theme.of(context).appBarTheme.backgroundColor,
                             size: 35.sp,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          appSoundCubit.backward10Seconds();
+                          );
                         },
-                        icon: SvgIcon(
-                          icon: ImageManager.backward10,
-                          height: 30.h,
-                          color: Theme.of(context).textTheme.bodyLarge?.color,
-                        ),
                       ),
-                    ],
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      appSoundCubit.backward10Seconds();
+                    },
+                    icon: SvgIcon(
+                      icon: ImageManager.backward10,
+                      height: 30.h,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
                   ),
                 ],
-              ),
-            ],
-          );
-        },
+              );
+            },
+          ),
+          30.verticalSpace,
+        ],
       ),
     );
   }

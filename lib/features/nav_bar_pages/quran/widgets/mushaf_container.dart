@@ -23,13 +23,13 @@ class MushafContainer extends StatelessWidget {
             SvgIcon(
               icon: ImageManager.mushaf,
               height: 35.h,
-              color: ColorManager.white,
+              color: AppColors.white,
             ),
             SizedBox(width: 12.w),
             Text(
               "المصحف الشريف",
               style: TextStyle(
-                color: ColorManager.white,
+                color: AppColors.white,
                 fontFamily: 'amiri',
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w600,

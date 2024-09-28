@@ -1,26 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:quran_app/core/helpers/constants.dart';
 
 import '../data/models/speakers_model.dart';
-
-abstract class AppSoundStates {}
-
-class AppSoundInitialState extends AppSoundStates {}
-
-class AppSoundPlayingState extends AppSoundStates {}
-
-class AppSoundPausedState extends AppSoundStates {}
-
-class AppSoundStoppedState extends AppSoundStates {}
-
-class AppSoundClearedState extends AppSoundStates {}
-
-//==============================================================================
+import 'sound_states.dart';
 
 class AppSoundCubit extends Cubit<AppSoundStates> {
   AppSoundCubit() : super(AppSoundInitialState());
@@ -31,40 +21,105 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   bool isPlaying = false;
+  bool isStartDownload = false;
+  bool isDownloaded = true;
+  double percent = 0;
+  String percentText = "0%";
+  ValueNotifier downloadProgressNotifier = ValueNotifier(0);
 
   String currentSurahPlayer = "";
+  String currentSurahSpeaker = "";
   Dio dio = Dio();
+
+  Future<void> checkIfDownLoaded(String fileName) async {
+    String filePath = await _getCacheFilePath(fileName);
+    File file = File(filePath);
+    if (await file.exists()) {
+      isDownloaded = true;
+    } else {
+      isDownloaded = false;
+    }
+
+    log("isDownloaded $isDownloaded");
+
+    emit(CheckIfDownLoadedState());
+  }
 
   Future<String> _getCacheFilePath(String fileName) async {
     final directory = await getApplicationDocumentsDirectory();
     return "${directory.path}/$fileName";
   }
 
-  Future<void> play(String url, String fileName) async {
+  Future<void> play({
+    required String fileName,
+    required String url,
+    required int mediaId,
+    required String surahName,
+    required String speaker,
+  }) async {
     String filePath = await _getCacheFilePath(fileName);
     File file = File(filePath);
 
-    if (await file.exists()) {
-      // Play from cache if file exists
-      await player.play(DeviceFileSource(filePath));
+    AudioSource audioSource;
+
+    if (await file.exists() && speaker == currentSurahSpeaker) {
+      audioSource = AudioSource.uri(
+        Uri.file(filePath),
+        tag: MediaItem(
+          id: '$mediaId',
+          title: "سُورَة $surahName",
+          album: "القرآن الكريم",
+          artUri: Uri.parse(logoImageNetwork),
+        ),
+      );
     } else {
-      // Download and cache the file if it doesn't exist
-      await _downloadAndCacheFile(url, filePath);
-      await player.play(DeviceFileSource(filePath));
+      audioSource = AudioSource.uri(
+        Uri.parse(url),
+        tag: MediaItem(
+          id: '$mediaId',
+          title: "سُورَة $surahName",
+          album: "القرآن الكريم",
+          artUri: Uri.parse(logoImageNetwork),
+        ),
+      );
     }
 
+    // Only set the audio source once when starting playback
+    if (player.audioSource == null) {
+      await player.setAudioSource(audioSource, preload: true);
+    }
+    // Play the audio (resume if already paused)
+    player.play();
     isPlaying = true;
     emit(AppSoundPlayingState());
   }
 
-  Future<void> _downloadAndCacheFile(String url, String savePath) async {
+  Future<void> downloadAndCacheFile(String url, String fileName) async {
+    isStartDownload = true;
+    downloadProgressNotifier.value = 0;
+    String filePath = await _getCacheFilePath(fileName);
+    emit(StartDownLoadingState());
+
     try {
-      Response response = await dio.download(url, savePath);
+      Response response = await dio.download(
+        url,
+        filePath,
+        onReceiveProgress: (received, total) {
+          downloadProgressNotifier.value = (received / total * 100).floor();
+
+          percent = downloadProgressNotifier.value / 100;
+          percentText = "${downloadProgressNotifier.value}%";
+        },
+      );
       if (response.statusCode == 200) {
-        log("File downloaded successfully: $savePath");
+        isDownloaded = true;
+        isStartDownload = false;
+        emit(CheckIfDownLoadedState());
+        log("File downloadedd successfully: $filePath");
       }
     } catch (e) {
-      log("Failed to download the file: $e");
+      log("Failed to downloadedd the file: $e");
+      isStartDownload = false;
     }
   }
 
@@ -75,9 +130,11 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
   }
 
   Future<void> resume() async {
-    await player.resume();
-    isPlaying = true;
-    emit(AppSoundPlayingState());
+    if (!player.playing) {
+      await player.play();
+      isPlaying = true;
+      emit(AppSoundResumedState());
+    }
   }
 
   void seek(Duration newPosition) {
@@ -85,32 +142,31 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
   }
 
   void onPlayerStateChanged() {
-    player.onPlayerStateChanged.listen((state) {
-      isPlaying = state == PlayerState.playing;
-      emit(isPlaying ? AppSoundPlayingState() : AppSoundPausedState());
-    });
+    player.playerStateStream.listen((state) {
+      isPlaying = state.playing;
 
-    player.onDurationChanged.listen((newDuration) {
-      duration = newDuration;
-      emit(AppSoundPlayingState());
-    });
+      if (state.processingState == ProcessingState.loading) {
+        emit(AppSoundLoadingState());
+      }
 
-    player.onPositionChanged.listen((newPosition) {
-      position = newPosition;
-      emit(AppSoundPlayingState());
-
-      // Check if the audio has finished
-
-      log("position: $position, duration: $duration");
-      if (position >= duration && duration != Duration.zero) {
-        // Repeat the audio by seeking to the beginning
+      if (state.processingState == ProcessingState.completed) {
         seek(Duration.zero);
-        player.resume(); // Play the audio again
-        emit(AppSoundPlayingState());
+        resume();
       }
     });
-  }
 
+    player.durationStream.listen((newDuration) {
+      if (newDuration != null) {
+        duration = newDuration;
+        emit(DurationStreamState());
+      }
+    });
+
+    player.positionStream.listen((newPosition) {
+      position = newPosition;
+      emit(PositionStreamState());
+    });
+  }
 
   void forward10Seconds() {
     final newPosition = position - const Duration(seconds: 10);
@@ -131,10 +187,19 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
   }
 
   Future<void> clearPosition() async {
-    await player.stop();
+    player.stop();
+    player.seek(Duration.zero);
     duration = Duration.zero;
     position = Duration.zero;
     isPlaying = false;
+    isStartDownload = false;
+    isDownloaded = true;
+    percent = 0;
+    percentText = "0%";
+    player.dispose();
+    player = AudioPlayer();
+    log("position cleared");
+    log("isPlaying $isPlaying");
     emit(AppSoundClearedState());
   }
 

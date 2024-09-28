@@ -6,6 +6,7 @@ import 'package:quran_app/core/helpers/navigate.dart';
 import 'package:quran_app/core/widgets/app_bar.dart';
 import 'package:quran_app/features/bottom_nav_bar/view.dart';
 
+import '../cubit/sound_states.dart';
 import '../cubit/sount_cubit.dart';
 
 class SpeakersScreen extends StatelessWidget {

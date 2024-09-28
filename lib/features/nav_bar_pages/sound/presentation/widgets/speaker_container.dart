@@ -23,7 +23,7 @@ class SpeakerContainer extends StatelessWidget {
             SvgIcon(
               icon: ImageManager.mushaf,
               height: 35.h,
-              color: ColorManager.white,
+              color: AppColors.white,
             ),
             SizedBox(width: 12.w),
             Expanded(
@@ -33,7 +33,7 @@ class SpeakerContainer extends StatelessWidget {
                   Text(
                     "القاريء المفضل",
                     style: TextStyle(
-                      color: ColorManager.white,
+                      color: AppColors.white,
                       fontFamily: 'cairo',
                       fontSize: 18.sp,
                       // fontWeight: FontWeight.w600,
@@ -42,7 +42,7 @@ class SpeakerContainer extends StatelessWidget {
                   Text(
                     CacheHelper.get(key: "speaker_name"),
                     style: TextStyle(
-                      color: ColorManager.white,
+                      color: AppColors.white,
                       fontFamily: 'cairo',
                       fontSize: 22.sp,
                     ),

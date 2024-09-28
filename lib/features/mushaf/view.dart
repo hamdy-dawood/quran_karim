@@ -32,9 +32,9 @@ class _MushafBody extends StatelessWidget {
     return BlocBuilder<MushafCubit, MushafStates>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: ColorManager.white,
+          backgroundColor: AppColors.white,
           appBar: AppBar(
-            backgroundColor: ColorManager.white,
+            backgroundColor: AppColors.white,
             elevation: 0,
             leading: IconButton(
               onPressed: () {
@@ -42,7 +42,7 @@ class _MushafBody extends StatelessWidget {
                 ScaffoldMessenger.of(MagicRouter.currentContext)
                     .clearSnackBars();
               },
-              color: ColorManager.black,
+              color: AppColors.black,
               icon: const Icon(Icons.arrow_back_sharp),
             ),
           ),
@@ -85,12 +85,12 @@ class _MushafBody extends StatelessWidget {
                         options: const DefaultBuilderOptions(),
                         documentLoaderBuilder: (_) => Center(
                           child: CircularProgressIndicator(
-                            color: ColorManager.orangeColor,
+                            color: AppColors.orangeColor,
                           ),
                         ),
                         pageLoaderBuilder: (_) => Center(
                           child: CircularProgressIndicator(
-                            color: ColorManager.orangeColor,
+                            color: AppColors.orangeColor,
                           ),
                         ),
                         errorBuilder: (_, error) =>
@@ -118,7 +118,7 @@ class _MushafBody extends StatelessWidget {
                               },
                               icon: Icon(
                                 Icons.bookmark,
-                                color: ColorManager.limeGreenColor,
+                                color: AppColors.limeGreenColor,
                                 size: 60.sp,
                               ),
                             ),
@@ -132,7 +132,7 @@ class _MushafBody extends StatelessWidget {
                               },
                               icon: Icon(
                                 Icons.bookmark_add,
-                                color: ColorManager.yellowColor,
+                                color: AppColors.yellowColor,
                                 size: 40.sp,
                               ),
                             ),

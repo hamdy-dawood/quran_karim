@@ -18,7 +18,7 @@ class ButtonWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
-          color: ColorManager.orangeColor,
+          color: AppColors.orangeColor,
         ),
         child: Padding(
           padding: EdgeInsets.all(8.h),
@@ -26,7 +26,7 @@ class ButtonWidget extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                color: ColorManager.white,
+                color: AppColors.white,
                 fontSize: 20.sp,
                 fontFamily: 'cairo',
               ),

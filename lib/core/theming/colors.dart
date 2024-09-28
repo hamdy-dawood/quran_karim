@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorManager {
+class AppColors {
   static Color orangeColor = const Color(0xffFF6106);
   static Color orangeColor2 = const Color(0xfff17026);
   static Color yellowColor = const Color(0xffFFB000);

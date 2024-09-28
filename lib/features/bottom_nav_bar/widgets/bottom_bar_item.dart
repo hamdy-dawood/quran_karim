@@ -26,10 +26,10 @@ class BottomBarItem extends StatelessWidget {
           icon: icon,
           height: isSelected ? 45.sp : 30.sp,
           color: isSelected
-              ? ColorManager.orangeColor
+              ? AppColors.orangeColor
               : context.read<ThemeCubit>().isDarkMode
-                  ? ColorManager.grey.withOpacity(0.7)
-                  : ColorManager.darkGrey,
+                  ? AppColors.grey.withOpacity(0.7)
+                  : AppColors.darkGrey,
         ),
       ),
     );

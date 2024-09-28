@@ -48,7 +48,7 @@ class _SplashViewState extends State<SplashView> {
                   'القُرْآنُ ',
                   style: TextStyle(
                     fontSize: 35.sp,
-                    color: ColorManager.orangeColor,
+                    color: AppColors.orangeColor,
                     letterSpacing: 1.2,
                     fontFamily: 'amiri',
                   ),
@@ -57,7 +57,7 @@ class _SplashViewState extends State<SplashView> {
                   'الكَرِيمُ',
                   style: TextStyle(
                     fontSize: 30.sp,
-                    color: ColorManager.yellowColor,
+                    color: AppColors.yellowColor,
                     letterSpacing: 1.2,
                     fontFamily: 'amiri',
                   ),

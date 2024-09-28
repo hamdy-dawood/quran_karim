@@ -59,6 +59,9 @@ dependencies:
   just_audio_cache: ^0.1.2
   dio: ^5.0.0
   path_provider: ^2.0.11
+  just_audio: ^0.9.31
+  just_audio_background: ^0.0.1-beta.11
+  percent_indicator: ^4.2.3
 
 
 dev_dependencies:

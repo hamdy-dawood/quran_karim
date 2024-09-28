@@ -57,8 +57,8 @@ class _QuranFontBody extends StatelessWidget {
               builder: (context, state) {
                 return Slider(
                   value: arabicFontSize,
-                  activeColor: ColorManager.orangeColor,
-                  inactiveColor: ColorManager.orangeColor.withOpacity(0.5),
+                  activeColor: AppColors.orangeColor,
+                  inactiveColor: AppColors.orangeColor.withOpacity(0.5),
                   min: 20,
                   max: 40,
                   onChanged: (value) {
@@ -87,7 +87,7 @@ class _QuranFontBody extends StatelessWidget {
                           key: 'arabicFontSize', value: arabicFontSize);
                       showMessage(
                         message: "تم حفظ حجم الخط",
-                        color: ColorManager.greenWhatsColor,
+                        color: AppColors.greenWhatsColor,
                       );
                     },
                     text: "حفظ",

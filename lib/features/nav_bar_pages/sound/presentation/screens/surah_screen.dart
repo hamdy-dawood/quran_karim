@@ -64,7 +64,7 @@ class QuranSoundView extends StatelessWidget {
                         height: 50.h,
                         width: 30.h,
                         decoration: BoxDecoration(
-                          color: ColorManager.yellowColor,
+                          color: AppColors.yellowColor,
                           borderRadius: BorderRadius.circular(6.r),
                         ),
                         child: Center(
@@ -72,7 +72,7 @@ class QuranSoundView extends StatelessWidget {
                             child: Text(
                               arabicName[i]['surah'].toString().toArabicNumbers,
                               style: TextStyle(
-                                color: ColorManager.black,
+                                color: AppColors.black,
                                 fontSize: 22.sp,
                                 fontFamily: 'amiri',
                               ),

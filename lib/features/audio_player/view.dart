@@ -78,7 +78,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
                 style: TextStyle(
                   fontSize: 22.sp,
                   fontFamily: arabicFont,
-                  color: ColorManager.orangeColor,
+                  color: AppColors.orangeColor,
                 ),
               ),
             ),
@@ -97,7 +97,7 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
                   },
                   child: Icon(
                     isPlaying ? Icons.pause : Icons.play_arrow,
-                    color: ColorManager.orangeColor,
+                    color: AppColors.orangeColor,
                     size: 35.sp,
                   ),
                 ),

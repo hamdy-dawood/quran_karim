@@ -53,7 +53,7 @@ class MorePage extends StatelessWidget {
                 icon: Icons.star,
                 onTap: () {
                   StoreRedirect.redirect(
-                    androidAppId: "com.hamdy.quran_app_app.quran_app",
+                    androidAppId: "com.hamdy_khalid_dawood.quran_app",
                     iOSAppId: "",
                   );
                 },
@@ -96,7 +96,7 @@ class MorePage extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(16.r)),
-                            color: ColorManager.yellowColor,
+                            color: AppColors.yellowColor,
                           ),
                           width: double.infinity,
                           height: 60.0,
@@ -104,7 +104,7 @@ class MorePage extends StatelessWidget {
                             child: Text(
                               "للتواصل مع مطور التطبيق",
                               style: TextStyle(
-                                color: ColorManager.black,
+                                color: AppColors.black,
                                 fontSize: 20.sp,
                                 fontFamily: 'cairo',
                               ),

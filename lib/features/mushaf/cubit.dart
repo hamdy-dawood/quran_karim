@@ -27,14 +27,14 @@ class MushafCubit extends Cubit<MushafStates> {
       CacheHelper.removeData(key: 'bookmark');
       showMessage(
         message: "تم ازالة العلامة",
-        color: ColorManager.redPrimary,
+        color: AppColors.redPrimary,
       );
       getBookmark();
     } else {
       await CacheHelper.put(key: 'bookmark', value: bookmark);
       showMessage(
         message: "تم وضع علامة",
-        color: ColorManager.limeGreenColor,
+        color: AppColors.limeGreenColor,
       );
 
       emit(QuranOffAddBookmark());
