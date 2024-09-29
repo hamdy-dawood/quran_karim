@@ -34,11 +34,14 @@ class _SurahSoundViewState extends State<SurahSoundView> {
   @override
   void initState() {
     super.initState();
-    context.read<AppSoundCubit>().checkIfDownLoaded(widget.urlSound);
+    String cachingSpeaker = CacheHelper.get(key: "speaker") ?? "";
+
+    context
+        .read<AppSoundCubit>()
+        .checkIfDownLoaded("$cachingSpeaker/${widget.urlSound}");
 
     if (context.read<AppSoundCubit>().currentSurahPlayer != widget.urlSound ||
-        context.read<AppSoundCubit>().currentSurahSpeaker !=
-            (CacheHelper.get(key: "speaker") ?? "")) {
+        context.read<AppSoundCubit>().currentSurahSpeaker != cachingSpeaker) {
       context.read<AppSoundCubit>().clearPosition();
     }
 
@@ -92,7 +95,7 @@ class _SurahSoundViewState extends State<SurahSoundView> {
                         onPressed: () {
                           appSoundCubit.downloadAndCacheFile(
                             soundUrl,
-                            widget.urlSound,
+                            "$cachingSpeaker/${widget.urlSound}",
                           );
                         },
                         child: Row(
@@ -188,48 +191,49 @@ class _SurahSoundViewState extends State<SurahSoundView> {
                           );
                         },
                       ),
-
-                      // SizedBox(
-                      //   height: 80,
-                      //   // Adjust the height based on wave size
-                      //   child: Stack(
-                      //     alignment: Alignment.center,
-                      //     children: [
-                      //       // Wave-like background
-                      //       Positioned.fill(
-                      //         child: CustomPaint(
-                      //           painter:
-                      //               WavePainter(), // Custom wave painter
-                      //         ),
-                      //       ),
-                      //
-                      //       // Slider on top of the wave background
-                      //       SliderTheme(
-                      //         data: SliderTheme.of(context).copyWith(
-                      //           trackHeight: 0, // Hide default track
-                      //           thumbShape: const RoundSliderThumbShape(
-                      //             enabledThumbRadius: 8,
+                      // BlocBuilder<AppSoundCubit, AppSoundStates>(
+                      //   builder: (context, state) {
+                      //     return SizedBox(
+                      //       height: 80,
+                      //       child: Stack(
+                      //         alignment: Alignment.center,
+                      //         children: [
+                      //           Positioned.fill(
+                      //             child: CustomPaint(
+                      //               painter:
+                      //                   WavePainter(), // Custom wave painter
+                      //             ),
                       //           ),
-                      //           thumbColor: Colors.deepOrange,
-                      //           overlayColor:
-                      //               Colors.deepOrange.withOpacity(0.2),
-                      //         ),
-                      //         child: Slider(
-                      //           min: 0,
-                      //           max: appSoundCubit.duration.inSeconds
-                      //               .toDouble(),
-                      //           value: appSoundCubit.position.inSeconds
-                      //               .toDouble(),
-                      //           onChanged: (value) {
-                      //             appSoundCubit.seek(
-                      //                 Duration(seconds: value.toInt()));
-                      //           },
-                      //           activeColor: Colors.transparent,
-                      //           inactiveColor: Colors.transparent,
-                      //         ),
+                      //           SliderTheme(
+                      //             data: SliderTheme.of(context).copyWith(
+                      //               trackHeight: 0,
+                      //               thumbShape: const RoundSliderThumbShape(
+                      //                 enabledThumbRadius: 8,
+                      //               ),
+                      //               thumbColor: Colors.deepOrange,
+                      //               overlayColor:
+                      //                   Colors.deepOrange.withOpacity(0.2),
+                      //             ),
+                      //             child: Slider(
+                      //               min: 0,
+                      //               max: appSoundCubit.duration.inSeconds
+                      //                   .toDouble(),
+                      //               value: appSoundCubit.position.inSeconds
+                      //                   .toDouble(),
+                      //               onChanged: (value) {
+                      //                 appSoundCubit.seek(
+                      //                     Duration(seconds: value.toInt()));
+                      //               },
+                      //               activeColor:
+                      //                   Colors.deepOrange.withOpacity(0.5),
+                      //               inactiveColor:
+                      //                   Colors.deepOrange.withOpacity(0.3),
+                      //             ),
+                      //           ),
+                      //         ],
                       //       ),
-                      //     ],
-                      //   ),
+                      //     );
+                      //   },
                       // ),
                       BlocBuilder<AppSoundCubit, AppSoundStates>(
                         builder: (context, state) {
@@ -293,10 +297,10 @@ class _SurahSoundViewState extends State<SurahSoundView> {
                         await appSoundCubit.pause();
                       } else {
                         await appSoundCubit.play(
-                          fileName: widget.urlSound,
+                          fileName: "$cachingSpeaker/${widget.urlSound}",
                           url: soundUrl,
                           mediaId: _nextMediaId++,
-                          surahName: "سُورَة ${widget.surahName}",
+                          surahName: widget.surahName,
                           speaker: cachingSpeaker,
                         );
                       }

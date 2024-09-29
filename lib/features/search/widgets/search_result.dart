@@ -6,7 +6,7 @@ import 'package:quran_app/core/helpers/cache_helper.dart';
 import 'package:quran_app/core/helpers/constants.dart';
 import 'package:quran_app/core/helpers/navigate.dart';
 import 'package:quran_app/core/helpers/to_arabic_number_convertor.dart';
-import 'package:quran_app/features/surah_design/surah.dart';
+import 'package:quran_app/features/surah_design/presentation/screens/surah_screen.dart';
 
 class BuildSearchResult extends StatelessWidget {
   const BuildSearchResult({super.key, required this.results});

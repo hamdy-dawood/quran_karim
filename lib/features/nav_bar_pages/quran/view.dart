@@ -7,7 +7,7 @@ import 'package:quran_app/core/helpers/to_arabic_days.dart';
 import 'package:quran_app/core/helpers/to_arabic_monthes.dart';
 import 'package:quran_app/core/helpers/to_arabic_number_convertor.dart';
 import 'package:quran_app/core/theming/colors.dart';
-import 'package:quran_app/features/surah_design/surah.dart';
+import 'package:quran_app/features/surah_design/presentation/screens/surah_screen.dart';
 
 import 'widgets/last_read_widget.dart';
 import 'widgets/mushaf_container.dart';

@@ -16,12 +16,11 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    // PrayerNotifications().notifications();
     _goNext();
   }
 
   _goNext() async {
-    await Future.delayed(const Duration(milliseconds: 3000), () {});
+    await Future.delayed(const Duration(seconds: 2), () {});
     MagicRouter.navigateTo(page: const NavBarView(), withHistory: false);
   }
 
@@ -29,42 +28,47 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              SizedBox(height: 0.05.sh),
+              SizedBox(
+                height: 250.h,
+                width: 250.h,
+                child: const Image(
+                  image: AssetImage(ImageManager.quranLogoImg),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              SizedBox(height: 30.h),
+            ],
+          ),
+        ),
+      ),
+      bottomSheet: Padding(
+        padding:  EdgeInsets.only(bottom: 10.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 0.3.sh),
-            SizedBox(
-              height: 250.h,
-              width: 250.h,
-              child: const Image(
-                image: AssetImage(ImageManager.quranLogoImg),
-                fit: BoxFit.fill,
+            Text(
+              'القُرْآنُ ',
+              style: TextStyle(
+                fontSize: 35.sp,
+                color: AppColors.orangeColor,
+                letterSpacing: 1.2,
+                fontFamily: 'amiri',
               ),
             ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'القُرْآنُ ',
-                  style: TextStyle(
-                    fontSize: 35.sp,
-                    color: AppColors.orangeColor,
-                    letterSpacing: 1.2,
-                    fontFamily: 'amiri',
-                  ),
-                ),
-                Text(
-                  'الكَرِيمُ',
-                  style: TextStyle(
-                    fontSize: 30.sp,
-                    color: AppColors.yellowColor,
-                    letterSpacing: 1.2,
-                    fontFamily: 'amiri',
-                  ),
-                ),
-              ],
+            Text(
+              'الكَرِيمُ',
+              style: TextStyle(
+                fontSize: 30.sp,
+                color: AppColors.yellowColor,
+                letterSpacing: 1.2,
+                fontFamily: 'amiri',
+              ),
             ),
-            SizedBox(height: 30.h),
           ],
         ),
       ),

@@ -5,9 +5,10 @@ import 'package:quran_app/core/helpers/app_theme.dart';
 import 'package:quran_app/core/helpers/cache_helper.dart';
 import 'package:quran_app/core/helpers/constants.dart';
 import 'package:quran_app/core/helpers/navigate.dart';
+import 'package:quran_app/core/theming/assets.dart';
 import 'package:quran_app/core/theming/colors.dart';
 import 'package:quran_app/core/widgets/snack_bar.dart';
-import 'package:quran_app/features/audio_player/view.dart';
+import 'package:quran_app/core/widgets/svg_icons.dart';
 import 'package:quran_app/features/bottom_nav_bar/view.dart';
 import 'package:quran_app/features/nav_bar_pages/more/widgets/dark_mode_switch.dart';
 import 'package:quran_app/features/search/view.dart';
@@ -15,9 +16,10 @@ import 'package:quran_app/features/share_image/share_image.dart';
 import 'package:quran_app/features/tafser/view.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import 'widgets/ayah.dart';
-import 'widgets/container_list.dart';
-import 'widgets/started_surah.dart';
+import '../widgets/ayah.dart';
+import '../widgets/container_list.dart';
+import '../widgets/started_surah.dart';
+import 'audio_player_ayah_screen.dart';
 
 class SurahPage extends StatefulWidget {
   final dynamic arabic;
@@ -134,7 +136,11 @@ class _SurahPageState extends State<SurahPage> {
               onPressed: () {
                 MagicRouter.navigateTo(page: const SearchView());
               },
-              icon: const Icon(Icons.search),
+              icon: SvgIcon(
+                icon: ImageManager.search,
+                height: 20.h,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(right: 15.w),
@@ -170,7 +176,7 @@ class _SurahPageState extends State<SurahPage> {
                   ? ScrollablePositionedList.builder(
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
-                          children: [
+                          children: <Widget>[
                             (index != 0) || (widget.surah == 8)
                                 ? const Text('')
                                 : Padding(

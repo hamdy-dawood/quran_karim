@@ -8,7 +8,7 @@ import 'package:quran_app/core/theming/assets.dart';
 import 'package:quran_app/core/theming/colors.dart';
 import 'package:quran_app/core/widgets/snack_bar.dart';
 import 'package:quran_app/core/widgets/svg_icons.dart';
-import 'package:quran_app/features/surah_design/surah.dart';
+import 'package:quran_app/features/surah_design/presentation/screens/surah_screen.dart';
 
 class LastReadWidget extends StatelessWidget {
   const LastReadWidget({super.key});

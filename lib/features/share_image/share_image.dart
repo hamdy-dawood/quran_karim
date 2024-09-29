@@ -64,28 +64,6 @@ class ShareImage extends StatelessWidget {
           ),
         ],
       ),
-      bottomSheet: GestureDetector(
-        onTap: () async {
-          final image = await screenshotController.capture();
-          saveAndShare(image!);
-        },
-        child: Container(
-          height: 40.h,
-          width: 1.sw,
-          // color: ColorManager.orangeColor,
-          margin: EdgeInsets.all(10.h),
-          child: Center(
-            child: Text(
-              "مشاركة",
-              style: TextStyle(
-                color: AppColors.white,
-                fontSize: 18.sp,
-                fontFamily: "cairo",
-              ),
-            ),
-          ),
-        ),
-      ),
       body: ListView(
         children: [
           Screenshot(
@@ -193,6 +171,31 @@ class ShareImage extends StatelessWidget {
           ),
         ],
       ),
+      bottomSheet: Container(
+        color: AppColors.orangeColor,
+        child: GestureDetector(
+          onTap: () async {
+            final image = await screenshotController.capture();
+            saveAndShare(image!);
+          },
+          child: Container(
+            height: 40.h,
+            width: 1.sw,
+            // color: ColorManager.orangeColor,
+            margin: EdgeInsets.all(10.h),
+            child: Center(
+              child: Text(
+                "مشاركة",
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 18.sp,
+                  fontFamily: "cairo",
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -202,7 +205,7 @@ class ShareImage extends StatelessWidget {
     image.writeAsBytes(bytes);
 
     const text =
-        "تمت المشاركة من تطبيق القرآن الكريم -  المصحف كامل , تفسير ميسر , أدعية وأذكار - شاركنا الثواب , شاركنا في الصدقة الجارية. \n https://play.google.com/store/apps/details?id=com.hamdy_khalid_dawood.quran_app";
+        "تمت المشاركة من تطبيق القرآن الكريم -  المصحف كامل , استماع وتحميل , تفسير ميسر , أدعية وأذكار - شاركنا الثواب , شاركنا في الصدقة الجارية. \n https://play.google.com/store/apps/details?id=com.hamdy_khalid_dawood.quran_app";
 
     await Share.shareFiles([image.path], text: text);
   }

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:918797848192:android:7a6b2a1098a66377d1e065",
+        "mobilesdk_app_id": "1:918797848192:android:eaac1fd247c2f6acd1e065",
         "android_client_info": {
-          "package_name": "com.hamdy.quran_app_app.quran_app"
+          "package_name": "com.hamdy_khalid_dawood.quran_app"
         }
       },
       "oauth_client": [],

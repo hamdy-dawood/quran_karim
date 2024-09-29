@@ -78,7 +78,7 @@ class MorePage extends StatelessWidget {
                 icon: Icons.share,
                 onTap: () {
                   Share.share(
-                      "تحميل تطبيق القرآن الكريم -  المصحف كامل , تفسير ميسر , أدعية وأذكار - شاركنا الثواب , شاركنا في الصدقة الجارية. \n https://play.google.com/store/apps/details?id=com.hamdy_khalid_dawood.quran_app");
+                      "تحميل تطبيق القرآن الكريم -  المصحف كامل , استماع وتحميل , تفسير ميسر , أدعية وأذكار - شاركنا الثواب , شاركنا في الصدقة الجارية. \n https://play.google.com/store/apps/details?id=com.hamdy_khalid_dawood.quran_app");
                 },
               ),
               Center(
