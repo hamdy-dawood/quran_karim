@@ -94,7 +94,18 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
     emit(AppSoundPlayingState());
   }
 
+  CancelToken cancelToken = CancelToken();
+
+  void stopDownload() {
+     isStartDownload = false;
+     isDownloaded = false;
+     downloadProgressNotifier.value = 0;
+     cancelToken.cancel("Download canceled by the user");
+     emit(StopDownLoadState());
+  }
+
   Future<void> downloadAndCacheFile(String url, String fileName) async {
+    cancelToken = CancelToken();
     isStartDownload = true;
     downloadProgressNotifier.value = 0;
     String filePath = await _getCacheFilePath(fileName);
@@ -110,16 +121,18 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
           percent = downloadProgressNotifier.value / 100;
           percentText = "${downloadProgressNotifier.value}%";
         },
+        cancelToken: cancelToken,
       );
       if (response.statusCode == 200) {
         isDownloaded = true;
         isStartDownload = false;
         emit(CheckIfDownLoadedState());
-        log("File downloadedd successfully: $filePath");
+        log("File downloaded successfully: $filePath");
       }
     } catch (e) {
-      log("Failed to downloadedd the file: $e");
+      log("Failed to downloaded the file: $e");
       isStartDownload = false;
+      emit(ErrorDownLoadState());
     }
   }
 

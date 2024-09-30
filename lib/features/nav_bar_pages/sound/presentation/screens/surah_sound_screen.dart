@@ -127,35 +127,56 @@ class _SurahSoundViewState extends State<SurahSoundView> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             child: BlocBuilder<AppSoundCubit, AppSoundStates>(
               builder: (context, state) {
                 return ValueListenableBuilder(
                     valueListenable: appSoundCubit.downloadProgressNotifier,
                     builder: (context, value, snapshot) {
+                      if (state is StartDownLoadingState &&
+                          appSoundCubit.downloadProgressNotifier.value == 0) {
+                        return const DefaultSmallCircleIndicator();
+                      }
                       return appSoundCubit.downloadProgressNotifier.value ==
                                   0 ||
                               appSoundCubit.downloadProgressNotifier.value ==
                                   100
                           ? const SizedBox()
-                          : CircularPercentIndicator(
-                              radius: 35,
-                              lineWidth: 4,
-                              percent: appSoundCubit.percent,
-                              center: Text(
-                                appSoundCubit.percentText,
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.color,
-                                  fontFamily: 'cairo',
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircularPercentIndicator(
+                                  radius: 35,
+                                  lineWidth: 4,
+                                  percent: appSoundCubit.percent,
+                                  center: Text(
+                                    appSoundCubit.percentText,
+                                    style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.color,
+                                      fontFamily: 'cairo',
+                                    ),
+                                  ),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  progressColor: AppColors.orangeColor,
                                 ),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                              progressColor: AppColors.orangeColor,
+                                10.horizontalSpace,
+                                IconButton(
+                                  onPressed: () {
+                                    appSoundCubit.stopDownload();
+                                  },
+                                  icon: SvgIcon(
+                                    icon: ImageManager.cancel,
+                                    height: 30.h,
+                                    color: AppColors.redPrimary,
+                                  ),
+                                ),
+                              ],
                             );
                     });
               },

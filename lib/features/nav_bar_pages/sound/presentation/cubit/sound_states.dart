@@ -20,6 +20,12 @@ class StartDownLoadingState extends AppSoundStates {}
 
 class CheckIfDownLoadedState extends AppSoundStates {}
 
+class ErrorDownLoadState extends AppSoundStates {}
+
+class CanceledDownLoadState extends AppSoundStates {}
+
+class StopDownLoadState extends AppSoundStates {}
+
 class StateChangedPausedState extends AppSoundStates {}
 
 class AppSoundStoppedState extends AppSoundStates {}
