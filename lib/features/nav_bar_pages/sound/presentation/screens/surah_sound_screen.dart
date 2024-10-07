@@ -212,50 +212,6 @@ class _SurahSoundViewState extends State<SurahSoundView> {
                           );
                         },
                       ),
-                      // BlocBuilder<AppSoundCubit, AppSoundStates>(
-                      //   builder: (context, state) {
-                      //     return SizedBox(
-                      //       height: 80,
-                      //       child: Stack(
-                      //         alignment: Alignment.center,
-                      //         children: [
-                      //           Positioned.fill(
-                      //             child: CustomPaint(
-                      //               painter:
-                      //                   WavePainter(), // Custom wave painter
-                      //             ),
-                      //           ),
-                      //           SliderTheme(
-                      //             data: SliderTheme.of(context).copyWith(
-                      //               trackHeight: 0,
-                      //               thumbShape: const RoundSliderThumbShape(
-                      //                 enabledThumbRadius: 8,
-                      //               ),
-                      //               thumbColor: Colors.deepOrange,
-                      //               overlayColor:
-                      //                   Colors.deepOrange.withOpacity(0.2),
-                      //             ),
-                      //             child: Slider(
-                      //               min: 0,
-                      //               max: appSoundCubit.duration.inSeconds
-                      //                   .toDouble(),
-                      //               value: appSoundCubit.position.inSeconds
-                      //                   .toDouble(),
-                      //               onChanged: (value) {
-                      //                 appSoundCubit.seek(
-                      //                     Duration(seconds: value.toInt()));
-                      //               },
-                      //               activeColor:
-                      //                   Colors.deepOrange.withOpacity(0.5),
-                      //               inactiveColor:
-                      //                   Colors.deepOrange.withOpacity(0.3),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
                       BlocBuilder<AppSoundCubit, AppSoundStates>(
                         builder: (context, state) {
                           return Row(
@@ -378,32 +334,4 @@ class _SurahSoundViewState extends State<SurahSoundView> {
       return "$twoDigitMinutes:$twoDigitSeconds";
     }
   }
-}
-
-class WavePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = Colors.deepOrange.withOpacity(0.3)
-      ..style = PaintingStyle.fill;
-
-    // Define path for the wave
-    Path path = Path();
-    path.moveTo(0, size.height * 0.5);
-
-    // Create waves using cubic or quadratic curves
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.6,
-        size.width * 0.5, size.height * 0.5);
-    path.quadraticBezierTo(
-        size.width * 0.75, size.height * 0.4, size.width, size.height * 0.5);
-
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

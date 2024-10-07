@@ -16,9 +16,9 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.h),
       child: SizedBox(
-        width: 100.w,
+        width: 70,
         child: TextFormField(
           controller: controller,
           onFieldSubmitted: onFieldSubmitted,
@@ -30,7 +30,7 @@ class SearchTextField extends StatelessWidget {
             fontSize: 18.sp,
           ),
           decoration: InputDecoration(
-            hintText: "رقم الصفحة",
+            hintText: "الصفحة",
             hintStyle: TextStyle(
               color: AppColors.black,
               fontSize: 14.sp,

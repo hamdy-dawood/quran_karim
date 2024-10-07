@@ -62,6 +62,8 @@ class _MyAppState extends State<MyApp> {
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   home: UpgradeAlert(
+                    barrierDismissible: false,
+                    showIgnore: false,
                     child: const SplashView(),
                   ),
                 );
