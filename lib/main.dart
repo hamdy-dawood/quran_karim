@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,26 +28,30 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
 
   await CacheHelper.init();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
+  if (!kIsWeb) {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  const DarwinInitializationSettings darwinInitializationSettings =
-      DarwinInitializationSettings();
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
 
-  const InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: darwinInitializationSettings,
-  );
+    const DarwinInitializationSettings darwinInitializationSettings =
+    DarwinInitializationSettings();
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    const InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: darwinInitializationSettings,
+    );
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  requestPermissionNotification();
-  fcmConfig();
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-  FirebaseMessaging.instance.subscribeToTopic('users');
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    requestPermissionNotification();
+    fcmConfig();
+
+    FirebaseMessaging.instance.subscribeToTopic('users');
+  }
+
 
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',

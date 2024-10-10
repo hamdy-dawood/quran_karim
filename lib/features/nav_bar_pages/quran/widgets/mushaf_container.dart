@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,6 @@ class MushafContainer extends StatefulWidget {
 }
 
 class _MushafContainerState extends State<MushafContainer> {
-
   Future<String> _getCacheFilePath(String fileName) async {
     final directory = await getApplicationDocumentsDirectory();
     return "${directory.path}/$fileName";
@@ -38,20 +38,22 @@ class _MushafContainerState extends State<MushafContainer> {
 
     return GestureDetector(
       onTap: () async {
-        String filePath = await _getCacheFilePath("mushaf_mode_pdf.pdf");
-        File file = File(filePath);
+        if (!kIsWeb) {
+          String filePath = await _getCacheFilePath("mushaf_mode_pdf.pdf");
+          File file = File(filePath);
 
-        if (await file.exists()) {
-          MagicRouter.navigateTo(page: MushafView(filePath: filePath));
-        } else {
-          appSoundCubit.downloadAndCacheFile(
-            mushafPdfLink,
-            "mushaf_mode_pdf.pdf",
-          );
-          showMessage(
-            message: "يتم الان تحميل المصحف الشريف",
-            color: AppColors.greenWhatsColor,
-          );
+          if (await file.exists()) {
+            MagicRouter.navigateTo(page: MushafView(filePath: filePath));
+          } else {
+            appSoundCubit.downloadAndCacheFile(
+              mushafPdfLink,
+              "mushaf_mode_pdf.pdf",
+            );
+            showMessage(
+              message: "يتم الان تحميل المصحف الشريف",
+              color: AppColors.greenWhatsColor,
+            );
+          }
         }
       },
       child: EmptyContainer(

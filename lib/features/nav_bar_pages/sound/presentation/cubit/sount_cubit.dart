@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
@@ -57,21 +57,33 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
     required String surahName,
     required String speaker,
   }) async {
-    String filePath = await _getCacheFilePath(fileName);
-    File file = File(filePath);
-
     AudioSource audioSource;
 
-    if (await file.exists() && speaker == currentSurahSpeaker) {
-      audioSource = AudioSource.uri(
-        Uri.file(filePath),
-        tag: MediaItem(
-          id: '$mediaId',
-          title: "سُورَة $surahName",
-          album: "القرآن الكريم",
-          artUri: Uri.parse(logoImageNetwork),
-        ),
-      );
+    if (!kIsWeb) {
+      String filePath = await _getCacheFilePath(fileName);
+      File file = File(filePath);
+
+      if (await file.exists() && speaker == currentSurahSpeaker) {
+        audioSource = AudioSource.uri(
+          Uri.file(filePath),
+          tag: MediaItem(
+            id: '$mediaId',
+            title: "سُورَة $surahName",
+            album: "القرآن الكريم",
+            artUri: Uri.parse(logoImageNetwork),
+          ),
+        );
+      } else {
+        audioSource = AudioSource.uri(
+          Uri.parse(url),
+          tag: MediaItem(
+            id: '$mediaId',
+            title: "سُورَة $surahName",
+            album: "القرآن الكريم",
+            artUri: Uri.parse(logoImageNetwork),
+          ),
+        );
+      }
     } else {
       audioSource = AudioSource.uri(
         Uri.parse(url),
@@ -97,11 +109,11 @@ class AppSoundCubit extends Cubit<AppSoundStates> {
   CancelToken cancelToken = CancelToken();
 
   void stopDownload() {
-     isStartDownload = false;
-     isDownloaded = false;
-     downloadProgressNotifier.value = 0;
-     cancelToken.cancel("Download canceled by the user");
-     emit(StopDownLoadState());
+    isStartDownload = false;
+    isDownloaded = false;
+    downloadProgressNotifier.value = 0;
+    cancelToken.cancel("Download canceled by the user");
+    emit(StopDownLoadState());
   }
 
   Future<void> downloadAndCacheFile(String url, String fileName) async {
