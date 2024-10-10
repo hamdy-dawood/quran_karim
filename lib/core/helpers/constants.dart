@@ -327,3 +327,5 @@ Future readQuranSoundJson() async {
 }
 
 String logoImageNetwork = "https://i.imghippo.com/files/Ui3Le1727598160.png";
+
+String mushafPdfLink = "https://firebasestorage.googleapis.com/v0/b/quran-app-485bd.appspot.com/o/mushaf%2Fmushaf_mode_pdf.pdf?alt=media&token=c31515e0-2889-4ab9-a0ef-f24a7c4e0b67";

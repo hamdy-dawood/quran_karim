@@ -96,7 +96,6 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/icons/
-    - assets/pdf/
     - assets/sounds/
     - assets/lottie/
 

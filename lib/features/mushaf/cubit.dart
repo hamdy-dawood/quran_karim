@@ -13,12 +13,6 @@ class MushafCubit extends Cubit<MushafStates> {
 
   static MushafCubit get(context) => BlocProvider.of(context);
 
-  final pdfController = PdfController(
-    initialPage: CacheHelper.get(key: 'bookmark') ?? 0,
-    viewportFraction: 1.2,
-    document: PdfDocument.openAsset('assets/pdf/quran.pdf'),
-  );
-
   TextEditingController num = TextEditingController();
   int? bookmark = 0;
 
@@ -54,55 +48,8 @@ class MushafCubit extends Cubit<MushafStates> {
       emit(QuranOffGetBookmark());
     }
   }
-
-// Future<File?> downloadPDF(String pdfPath) async {
-//   try {
-//     final storageRef = FirebaseStorage.instance.ref().child(pdfPath);
-//     final tempDir = await getTemporaryDirectory();
-//     final tempFile = File('${tempDir.path}/downloaded_pdf.pdf');
-//     await storageRef.writeToFile(tempFile);
-//     return tempFile;
-//   } catch (e) {
-//     print('Error downloading PDF: $e');
-//     return null;
-//   }
-// }
 }
 
-//=============================================================================
-
-// class FirebaseApi {
-//   static Future<List<String>> _getDownloadLinks(List<Reference> refs) =>
-//       Future.wait(refs.map((ref) => ref.getDownloadURL()).toList());
-//
-//   static Future<List<FirebaseFile>> listAll(String path) async {
-//     final ref = FirebaseStorage.instance.ref(path);
-//     final result = await ref.listAll();
-//
-//     final urls = await _getDownloadLinks(result.items);
-//
-//     return urls
-//         .asMap()
-//         .map((index, url) {
-//           final ref = result.items[index];
-//           final name = ref.name;
-//           final file = FirebaseFile(ref: ref, name: name, url: url);
-//
-//           return MapEntry(index, file);
-//         })
-//         .values
-//         .toList();
-//   }
-//
-//   static Future downloadFile(Reference ref) async {
-//     final dir = await getApplicationDocumentsDirectory();
-//     final file = File('${dir.path}/${ref.name}');
-//
-//     await ref.writeToFile(file);
-//   }
-// }
-
-//=============================================================================
 
 class FirebaseFile {
   final Reference ref;
