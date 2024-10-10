@@ -33,7 +33,7 @@ class SearchTextField extends StatelessWidget {
             hintText: "الصفحة",
             hintStyle: TextStyle(
               color: AppColors.black,
-              fontSize: 14.sp,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w400,
               fontFamily: "cairo",
             ),
